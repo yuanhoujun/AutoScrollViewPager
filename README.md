@@ -4,13 +4,16 @@
 
 # 基本用法
 1) 将library库以module形式导入到你的Android Studio工程中
+
 2) 在布局文件中集成AutoScrollViewPager
 <pre>
+
 <me.foji.widget.AutoScrollViewPager
     android:layout_width="match_parent"
     android:layout_height="160dp"
     app:autoScrollEnable="true"
     android:id="@+id/viewPager"/>
+    
 </pre>
 3) 设置你的AutoScrollPagerAdapter, 对轮播页面进行定义
 <pre>
