@@ -56,12 +56,18 @@ app: indictorVisible ==> 是否显示页面指示器
 
 ###关于作者:
 **笔名**: 欧阳锋
+
 **爱好**: 编程,旅游,运动
+
 **擅长**: Android/iOS/Java Web/C++/Kotlin
+
 **简书**: [关注我的简书](http://www.jianshu.com/users/db019edd34b4/latest_articles)
+
 **签名**: 做一个有理想的程序员
+
 **iOS交流群**: 468167089
+
 **Kotlin交流群**: 329673958
 
-*喜欢编程的同学,别忘了关注我的简书哦!*
+**喜欢编程的同学,别忘了关注我的简书哦!**
 
