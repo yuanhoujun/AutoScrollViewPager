@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AutoScrollViewPager">
+        <!-- 是否开启自动滚动 -->
+        <attr name="autoScrollEnable" format="boolean"/>
+        <!-- 滚动时间间隔 单位：s -->
+        <attr name="timeInterval" format="integer"/>
+        <!-- 设置单页指示器是否显示(默认不显示) -->
+        <attr name="indictorVisibleInSingle" format="boolean"/>
+        <!-- 指示器 Bottom Margin -->
+        <attr name="indictorBottomMargin" format="dimension"/>
+        <!-- 指示器间隔 -->
+        <attr name="indictorSpace" format="dimension"/>
+        <!-- 是否显示Indictor -->
+        <attr name="indictorVisible" format="boolean"/>
+    </declare-styleable>
+</resources>
