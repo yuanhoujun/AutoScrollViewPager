@@ -39,6 +39,23 @@ mViewPager.autoScroll();
 
 以上4步操作,就已经完成了该控件的集成,并开启了自动轮播.
 
+# 目前版本已经发布至JitPack，推荐使用如下方式使用:
+1）增加以下脚本到你的工程根目录的build.gradle文件中
+<pre>
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+</pre>
+2) 在你的app工程中，增加如下依赖:
+<pre>
+dependencies {
+	        compile 'com.github.yuanhoujun:AutoScrollViewPager:1.0.0'
+	}
+</pre>
+
 该控件支持的自定义属性有:
 <pre>
 app: autoScrollEnable ==> 是否开启自动滚动
