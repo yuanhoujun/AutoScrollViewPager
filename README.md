@@ -2,6 +2,10 @@
 支持自动滑动的ViewPager控件, 可以用于广告图轮播, 但不限于图片轮播, 该控件继承了ViewPager的强大基因
 可以定义任意布局. 控件使用经典的Adapter模型对页面及指示器进行样式定制, 可以实现完全自由的定制.
 
+# 更新日志
+### 1.0.1 更新点
+增加scrollFactor参数设置，可以在xml中指定，也可以通过代码指定，该参数值越大，滑动速度越慢。
+
 # 基本用法
 1) 将library库以module形式导入到你的Android Studio工程中
 
@@ -52,7 +56,7 @@ allprojects {
 2) 在你的app工程中，增加如下依赖:
 <pre>
 dependencies {
-	        compile 'com.github.yuanhoujun:AutoScrollViewPager:1.0.0'
+	        compile 'com.github.yuanhoujun:AutoScrollViewPager:1.0.1'
 	}
 </pre>
 
