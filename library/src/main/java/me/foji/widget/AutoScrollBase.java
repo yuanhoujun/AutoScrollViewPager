@@ -78,6 +78,13 @@ public abstract class AutoScrollBase extends FrameLayout {
     public abstract void setAutoScrollEnable(boolean autoScrollEnable);
 
     /**
+     * 设置滑动系数，系数越大，速度越慢
+     *
+     * @param scrollFactor 滑动系数，默认是1
+     */
+    public abstract void setScrollFactor(float scrollFactor);
+
+    /**
      * 设置滑动时间间隔
      */
     public abstract void setTimeInterval(int timeInterval);

@@ -17,7 +17,7 @@ import android.widget.FrameLayout;
  * @author scott
  */
 public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnPageChangeListener {
-    private ViewPager mViewPager;
+    private EnhencedViewPager mViewPager;
     // 自动滑动任务
     private Runnable mScrollTask;
     // Util
@@ -43,6 +43,8 @@ public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnP
     }
 
     private void init(Context context, AttributeSet attrs) {
+        float scrollFactor = 1.0f;
+
         if (null != attrs) {
             TypedArray array = context.getTheme().obtainStyledAttributes(attrs, R.styleable.AutoScrollViewPager, 0, 0);
 
@@ -52,17 +54,19 @@ public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnP
             mIndictorVisible = array.getBoolean(R.styleable.AutoScrollViewPager_indictorVisible, true);
             mIndictorBottomMargin = array.getDimension(R.styleable.AutoScrollViewPager_indictorBottomMargin, DEFAULT_BOTTOM_MARGIN);
             mIndictorSpace = array.getDimension(R.styleable.AutoScrollViewPager_indictorSpace, DEFAULT_INDICTOR_SPACE);
+            scrollFactor = array.getFloat(R.styleable.AutoScrollViewPager_scrollFactor , 1.0f);
 
             array.recycle();
         }
 
-        mViewPager = new ViewPager(context, attrs);
+        mViewPager = new EnhencedViewPager(context, attrs);
         mViewPager.setId(R.id.scrollView);
         FrameLayout.LayoutParams vp_lp = new FrameLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         mViewPager.setLayoutParams(vp_lp);
         mViewPager.addOnPageChangeListener(this);
         addView(mViewPager);
 
+        mViewPager.setScrollDurationFactor(scrollFactor);
         //设置默认的pageControl
         mPageControl = new PageControlView(context);
         FrameLayout.LayoutParams pc_lp = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -124,6 +128,11 @@ public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnP
     @Override
     public void setAutoScrollEnable(boolean autoSlideEnabled) {
         mAutoScrollEnable = autoSlideEnabled;
+    }
+
+    @Override
+    public void setScrollFactor(float scrollFactor) {
+        mViewPager.setScrollDurationFactor(scrollFactor);
     }
 
     @Override

@@ -13,5 +13,7 @@
         <attr name="indictorSpace" format="dimension"/>
         <!-- 是否显示Indictor -->
         <attr name="indictorVisible" format="boolean"/>
+        <!-- 滑动因子 -->
+        <attr name="scrollFactor" format="float"/>
     </declare-styleable>
 </resources>
