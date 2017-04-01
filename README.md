@@ -77,7 +77,7 @@ app: indictorVisible ==> 是否显示页面指示器
 ![S3](https://github.com/yuanhoujun/AutoScrollViewPager/blob/master/screenshot/s3.png)
 
 
-###关于作者:
+### 关于作者:
 **笔名**: 欧阳锋
 
 **爱好**: 编程,旅游,运动
