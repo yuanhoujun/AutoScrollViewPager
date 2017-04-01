@@ -10,9 +10,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import me.foji.widget.AutoScrollBase;
 import me.foji.widget.AutoScrollPagerAdapter;
 import me.foji.widget.AutoScrollViewPager;
+import me.foji.widget.QuickAutoScrollViewPager;
+import me.foji.widget.QuickScrollPagerAdapter;
 
 /**
  * 图片轮播
@@ -21,6 +26,7 @@ import me.foji.widget.AutoScrollViewPager;
  */
 public class FragmentImageSlider extends Fragment implements View.OnClickListener {
     private AutoScrollViewPager mViewPager;
+    private QuickAutoScrollViewPager mQuickViewPager;
     private Button start;
     private Button stop;
 
@@ -29,6 +35,7 @@ public class FragmentImageSlider extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_image_slider,container,false);
         mViewPager = (AutoScrollViewPager) view.findViewById(R.id.viewPager);
+        mQuickViewPager = (QuickAutoScrollViewPager)view.findViewById(R.id.quickViewPager);
         start = (Button) view.findViewById(R.id.start);
         stop = (Button) view.findViewById(R.id.stop);
         return view;
@@ -64,6 +71,17 @@ public class FragmentImageSlider extends Fragment implements View.OnClickListene
                 Toast.makeText(getContext(),"你点击了第" + (index + 1) + "张图片",Toast.LENGTH_SHORT).show();
             }
         });
+
+        List<Integer> datas = new ArrayList<>();
+        datas.add(R.drawable.cat1);
+        datas.add(R.drawable.cat2);
+
+        mQuickViewPager.setQuickAdapter(new QuickScrollPagerAdapter<Integer>(datas) {
+            @Override
+            public void convert(ImageView imageView, int position, Integer data) {
+                imageView.setImageResource(data);
+            }
+        });
     }
 
     @Override
@@ -71,10 +89,12 @@ public class FragmentImageSlider extends Fragment implements View.OnClickListene
         switch (view.getId()) {
             case R.id.start: {
                 mViewPager.autoScroll();
+                mQuickViewPager.autoScroll();
                 break;
             }
             case R.id.stop: {
                 mViewPager.stopAutoScroll();
+                mQuickViewPager.autoScroll();
                 break;
             }
         }

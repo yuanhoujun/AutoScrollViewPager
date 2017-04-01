@@ -10,6 +10,16 @@
         app:autoScrollEnable="true"
         app:scrollFactor="10.0"
         android:id="@+id/viewPager"/>
+
+    <me.foji.widget.QuickAutoScrollViewPager
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        app:autoScrollEnable="true"
+        app:scrollFactor="10.0"
+        app:asvp_indictor_radius="10dp"
+        app:asvp_selected_indictor_color="#00aabb"
+        app:asvp_unselected_indictor_color="#fff"
+        android:id="@+id/quickViewPager"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

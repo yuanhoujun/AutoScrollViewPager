@@ -21,7 +21,7 @@ public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnP
     // 自动滑动任务
     private Runnable mScrollTask;
     // Util
-    private Util util = new Util(getContext());
+    protected Util util = new Util(getContext());
 
     // 默认滑动时间间隔
     private final int DEFAULT_TIME_INTERVAL = 1000;
