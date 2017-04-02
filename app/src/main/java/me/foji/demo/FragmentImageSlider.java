@@ -1,6 +1,7 @@
 package me.foji.demo;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -72,16 +73,36 @@ public class FragmentImageSlider extends Fragment implements View.OnClickListene
             }
         });
 
-        List<Integer> datas = new ArrayList<>();
+        final List<Integer> datas = new ArrayList<>();
         datas.add(R.drawable.cat1);
         datas.add(R.drawable.cat2);
 
-        mQuickViewPager.setQuickAdapter(new QuickScrollPagerAdapter<Integer>(datas) {
+        final QuickScrollPagerAdapter adapter = new QuickScrollPagerAdapter<Integer>(datas) {
             @Override
             public void convert(ImageView imageView, int position, Integer data) {
                 imageView.setImageResource(data);
             }
-        });
+        };
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                datas.remove(0);
+                adapter.setDatas(datas);
+            }
+        } , 3000);
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                datas.add(R.drawable.cat1);
+                datas.add(R.drawable.cat2);
+                adapter.setDatas(datas);
+            }
+        } , 6000);
+
+        mQuickViewPager.setQuickAdapter(adapter);
     }
 
     @Override
