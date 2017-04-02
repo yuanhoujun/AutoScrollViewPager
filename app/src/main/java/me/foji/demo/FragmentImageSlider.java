@@ -115,7 +115,7 @@ public class FragmentImageSlider extends Fragment implements View.OnClickListene
             }
             case R.id.stop: {
                 mViewPager.stopAutoScroll();
-                mQuickViewPager.autoScroll();
+                mQuickViewPager.stopAutoScroll();
                 break;
             }
         }
