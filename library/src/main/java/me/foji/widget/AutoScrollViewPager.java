@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,7 @@ public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnP
 
     private PageControlBase.Adapter mIndictorAdapter;
     private AutoScrollPagerAdapter mAdapter;
+    private ActualPagerAdapter mActualAdapter;
 
     public AutoScrollViewPager(Context context) {
         this(context, null);
@@ -81,7 +83,8 @@ public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnP
         mScrollTask = new Runnable() {
             @Override
             public void run() {
-                if (null != mAdapter && mAdapter.count() >= mViewPager.getCurrentItem() + 1) {
+                if (null != mAdapter && mAdapter.getCount() > 1
+                        && mAdapter.count() >= mViewPager.getCurrentItem() + 1) {
                     mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
                 }
             }
@@ -186,7 +189,7 @@ public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnP
                 mPageControl.setCurrPage(0);
             } else {
                 mPageControl.setVisible(true);
-                if(mPageControl.mCurrPage > mPageControl.mTotalPage) mPageControl.setCurrPage(mPageControl.mTotalPage);
+                if(mPageControl.mCurrPage > mPageControl.mTotalPage) mPageControl.setCurrPage(currPage());
             }
         }
     }
@@ -207,16 +210,37 @@ public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnP
         }
     }
 
+    /**
+     * 如果是从较多条目变成了单一条目导致了滑动停止，则认为滑动被异常打断了。
+     *
+     * Note：单一条目不能开启自动轮播
+     */
+    public void restore() {
+        if(mAutoScrollStarted) {
+            removeCallbacks(mScrollTask);
+            postDelayed(mScrollTask, mTimeInterval);
+        }
+    }
+
+    /**
+     * AutoScrollViewPager和实际Adapter数据同步
+     */
+    public void adapterSync() {
+        if(null != mAdapter && null != mActualAdapter) {
+            mAdapter.setCount(mActualAdapter.getCount());
+        }
+    }
+
     @Override
     public void setAdapter(AutoScrollPagerAdapter adapter) {
         if(null != adapter) {
-            ActualPagerAdapter pAdapter = new ActualPagerAdapter();
-            pAdapter.setViewPager(this);
+            mActualAdapter = new ActualPagerAdapter();
+            mActualAdapter.setViewPager(this);
             mAdapter = adapter;
-            mAdapter.addOnChangeListener(pAdapter);
-            pAdapter.setBindView(mAdapter);
-            mAdapter.setCount(pAdapter.getCount());
-            mViewPager.setAdapter(pAdapter);
+            mAdapter.addOnChangeListener(mActualAdapter);
+            mActualAdapter.setBindView(mAdapter);
+            mAdapter.setCount(mActualAdapter.getCount());
+            mViewPager.setAdapter(mActualAdapter);
 
             if (mAutoScrollEnable) {
                 mViewPager.setCurrentItem(adapter.getCount() * 100, false);
@@ -264,6 +288,33 @@ public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnP
     @Override
     public void hide() {
         setVisibility(GONE);
+    }
+
+    @Override
+    public void setCurrentPage(int page, boolean smooth) {
+        if(null == mAdapter) return;
+
+        if(mAutoScrollEnable) {
+            mViewPager.setCurrentItem(page , smooth);
+        } else {
+            if(page >= 0 && page < mAdapter.count()) {
+                mViewPager.setCurrentItem(page , smooth);
+            }
+        }
+    }
+
+    /**
+     * 移动到自动滚动起始位置
+     */
+    public void moveToStartPosition(boolean smooth) {
+        if(null == mAdapter || mAdapter.count() <= 0) return;
+
+        if(mAutoScrollEnable) {
+            setCurrentPage(mAdapter.count() * 100, smooth);
+        } else {
+            setCurrentPage(0 , smooth);
+        }
+        updateIndictorStatus();
     }
 
     @Override

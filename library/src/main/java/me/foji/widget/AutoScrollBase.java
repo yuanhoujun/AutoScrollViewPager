@@ -138,6 +138,14 @@ public abstract class AutoScrollBase extends FrameLayout {
     public abstract void hide();
 
     /**
+     * 设置当前页
+     *
+     * @param page     目标页面
+     * @param smooth   是否平滑滚动
+     */
+    public abstract void setCurrentPage(int page , boolean smooth);
+
+    /**
      * 获取当前显示页
      *
      * @return 当前页

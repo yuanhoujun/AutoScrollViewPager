@@ -88,10 +88,14 @@ public class ActualPagerAdapter extends PagerAdapter implements OnChangeListener
     @Override
     public void notifyDataSetChanged() {
         mViews = null;
+        mViewPager.adapterSync();
+
         super.notifyDataSetChanged();
+
         if(null != mViewPager.mPageControl) {
             mViewPager.mPageControl.setTotalPage(mBindView.getCount());
         }
-        mViewPager.updateIndictorStatus();
+        mViewPager.moveToStartPosition(false);
+        mViewPager.restore();
     }
 }
