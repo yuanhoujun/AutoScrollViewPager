@@ -78,7 +78,8 @@ public class ActualPagerAdapter extends PagerAdapter implements OnChangeListener
 
     @Override
     public int getCount() {
-        return mBindView.getCount() > 1 ? Integer.MAX_VALUE : mBindView.getCount();
+        return mBindView.getCount() > 1 && mViewPager.cycleScrollingEnabled() ?
+                Integer.MAX_VALUE : mBindView.getCount();
     }
 
     public void setViewPager(AutoScrollViewPager viewPager) {
