@@ -63,7 +63,7 @@ mViewPager.autoScroll();
 ArrayList<Integer> datas = ArrayList<Integer>()
 datas.add(R.mipmap.temp01)
 datas.add(R.mipmap.temp02)
-quickViewPager.setQuickAdapter(object: QuickScrollPagerAdapter<Integer>(datas) {
+quickViewPager.setQuickAdapter(new QuickScrollPagerAdapter<Integer>(datas) {
     override fun convert(imageView: ImageView, position: int, data: int) {
         imageView.setImageResource(data)
     }
