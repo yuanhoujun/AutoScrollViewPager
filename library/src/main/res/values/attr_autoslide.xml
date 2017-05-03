@@ -23,5 +23,7 @@
         <attr name="asvp_selected_indictor_color" format="color"/>
         <!-- 反选指示器颜色 -->
         <attr name="asvp_unselected_indictor_color" format="color"/>
+        <!-- 开启循环滚动 -->
+        <attr name="asvp_cycle_scrolling_enable" format="boolean"/>
     </declare-styleable>
 </resources>

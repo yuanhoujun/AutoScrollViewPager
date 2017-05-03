@@ -2,11 +2,9 @@ package me.foji.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Rect;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +55,7 @@ public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnP
             mIndictorBottomMargin = array.getDimension(R.styleable.AutoScrollViewPager_indictorBottomMargin, DEFAULT_BOTTOM_MARGIN);
             mIndictorSpace = array.getDimension(R.styleable.AutoScrollViewPager_indictorSpace, DEFAULT_INDICTOR_SPACE);
             scrollFactor = array.getFloat(R.styleable.AutoScrollViewPager_scrollFactor , 1.0f);
+            mCycleScrollingEnable = array.getBoolean(R.styleable.AutoScrollViewPager_asvp_cycle_scrolling_enable , true);
 
             array.recycle();
         }
@@ -196,10 +195,14 @@ public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnP
 
     @Override
     public void autoScroll() {
-        if (!mAutoScrollStarted && mAutoScrollEnable) {
+        if (!mAutoScrollStarted && canAutoScroll()) {
             postDelayed(mScrollTask, mTimeInterval);
             mAutoScrollStarted = true;
         }
+    }
+
+    private boolean canAutoScroll() {
+        return mAutoScrollEnable && mCycleScrollingEnable;
     }
 
     @Override
@@ -294,7 +297,7 @@ public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnP
     public void setCurrentPage(int page, boolean smooth) {
         if(null == mAdapter) return;
 
-        if(mAutoScrollEnable) {
+        if(canAutoScroll()) {
             mViewPager.setCurrentItem(page , smooth);
         } else {
             if(page >= 0 && page < mAdapter.count()) {
@@ -309,7 +312,7 @@ public class AutoScrollViewPager extends AutoScrollBase implements ViewPager.OnP
     public void moveToStartPosition(boolean smooth) {
         if(null == mAdapter || mAdapter.count() <= 0) return;
 
-        if(mAutoScrollEnable) {
+        if(canAutoScroll()) {
             setCurrentPage(mAdapter.count() * 100, smooth);
         } else {
             setCurrentPage(0 , smooth);

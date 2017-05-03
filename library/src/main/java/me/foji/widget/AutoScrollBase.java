@@ -32,6 +32,8 @@ public abstract class AutoScrollBase extends FrameLayout {
     protected OnPageChangeListener onPageChangeListener;
     // 滑动视图被点击
     protected OnItemClickListener onItemClickListener;
+    // 是否开启循环滑动
+    protected boolean mCycleScrollingEnable = true;
 
     // 标记滑动状态
     // 标记视图处于空闲状态或手动设置状态，即没有与用户交互
@@ -76,6 +78,24 @@ public abstract class AutoScrollBase extends FrameLayout {
      * @param autoScrollEnable
      */
     public abstract void setAutoScrollEnable(boolean autoScrollEnable);
+
+    /**
+     * 设置循环滑动开启或关闭
+     *
+     * @param enable true 开启 false 关闭
+     */
+    public void setCycleScrollingEnable(boolean enable) {
+        mCycleScrollingEnable = enable;
+    }
+
+    /**
+     * 获取循环滑动开启状态
+     *
+     * @return true 状态开启 false 状态关闭
+     */
+    public boolean cycleScrollingEnabled() {
+        return mCycleScrollingEnable;
+    }
 
     /**
      * 设置滑动系数，系数越大，速度越慢
