@@ -43,6 +43,34 @@ mViewPager.autoScroll();
 
 以上4步操作,就已经完成了该控件的集成,并开启了自动轮播.
 
+# 简单用法
+如果只是希望实现简单的图片轮播，请使用<code>QuickAutoScrollViewPager</code>，具体使用方法如下：
+```xml
+<me.foji.widget.QuickAutoScrollViewPager
+    android:id="@+id/view_pager_banner"
+    android:layout_width="0dp"
+    android:layout_height="160dp"
+    app:layout_constraintLeft_toLeftOf="parent"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:autoScrollEnable="true"
+    app:asvp_indictor_radius="10dp"
+    app:asvp_selected_indictor_color="#fffffd"
+    app:asvp_unselected_indictor_color="#e83b6e"/>
+```  
+
+<pre>
+ArrayList<Integer> datas = ArrayList<Integer>()
+datas.add(R.mipmap.temp01)
+datas.add(R.mipmap.temp02)
+quickViewPager?.setQuickAdapter(object: QuickScrollPagerAdapter<Int>(datas) {
+    override fun convert(imageView: ImageView?, position: Int, data: Int) {
+        imageView?.setImageResource(data)
+    }
+})
+quickViewPager?.autoScroll()
+</pre>
+
 # 目前版本已经发布至JitPack，推荐使用如下方式使用:
 1）增加以下脚本到你的工程根目录的build.gradle文件中
 <pre>
@@ -56,7 +84,7 @@ allprojects {
 2) 在你的app工程中，增加如下依赖:
 <pre>
 dependencies {
-	        compile 'com.github.yuanhoujun:AutoScrollViewPager:1.0.1'
+	        compile 'com.github.yuanhoujun:AutoScrollViewPager:1.0.3'
 	}
 </pre>
 
