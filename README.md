@@ -15,7 +15,7 @@
     android:layout_width="match_parent"
     android:layout_height="160dp"
     app:autoScrollEnable="true"
-    android:id="@+id/viewPager"/\>
+    android:id="@+id/viewPager"/>
 ```  
 
 3) 设置你的AutoScrollPagerAdapter, 对轮播页面进行定义
@@ -63,12 +63,12 @@ mViewPager.autoScroll();
 ArrayList<Integer> datas = ArrayList<Integer>()
 datas.add(R.mipmap.temp01)
 datas.add(R.mipmap.temp02)
-quickViewPager?.setQuickAdapter(object: QuickScrollPagerAdapter<Int>(datas) {
-    override fun convert(imageView: ImageView?, position: Int, data: Int) {
-        imageView?.setImageResource(data)
+quickViewPager.setQuickAdapter(object: QuickScrollPagerAdapter<Integer>(datas) {
+    override fun convert(imageView: ImageView, position: int, data: int) {
+        imageView.setImageResource(data)
     }
 })
-quickViewPager?.autoScroll()
+quickViewPager.autoScroll()
 </pre>
 
 # 目前版本已经发布至JitPack，推荐使用如下方式使用:
