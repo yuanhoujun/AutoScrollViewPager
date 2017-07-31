@@ -45,7 +45,7 @@ public class ActualPagerAdapter extends PagerAdapter implements OnChangeListener
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(null != mViewPager.onItemClickListener) {
+                if(null != mViewPager.onItemClickListener && null != mViews) {
                     mViewPager.onItemClickListener.onItemClick(position % mViews.size(),itemView);
                 }
             }
